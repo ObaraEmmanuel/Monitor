@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block styles %}
+    <style>
+        #logs tr th{
+            width: 30%;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="text-subtitle">
+        <p class="text-medium" style="display: inline-block"> Attendance report for {{ user.username }}</p>
+        {% for period in periods %}
+            <a class="button-2 right {% if duration_name == period %}selected{% else %}{% endif %}" href={% url "bio:report" forloop.counter0 user.username%}>{{ period }}</a>
+        {% endfor %}
+    </div>
+    <p class="text-medium">{{ user.username }} has worked for: {{ net }}</p>
+    <table id="logs" style="width: 98%; max-width: 700px; margin: 0 auto">
+    {% if logs|length > 0 %}
+        <tr>
+            <th>Nature</th>
+            <th>Date</th>
+            <th>Time</th>
+        </tr>
+    {% endif %}
+        {% for log in logs %}
+            <tr class="{% cycle 'highlighted' '' %}">
+                <td>{% if log.nature == 1 %}Check in{% else %}Check out{% endif %}</td>
+                <td>{{ log.date|date}}</td>
+                <td>{{ log.date|time}}</td>
+            </tr>
+            {% empty %}
+            <div class="heading-text" style="text-align: center; display: block">No logs yet</div>
+        {% endfor %}
+    </table>
+{% endblock %}

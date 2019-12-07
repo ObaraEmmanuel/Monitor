@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<form class="content" id="checkin-form" method="post" action={% url "bio:check" %}>
+    {% csrf_token %}
+    <label>Username</label>
+    <input name="username" id="username" type="text">
+    <p id="message" class="error"></p>
+    <input type="submit" id="submit" style="display: none">
+    <button class="button" id="checkin" type="button" onclick="preCheck()">Check in / out</button>
+</form>
+{% endblock %}
+{% block scripts %}
+    <script>
+        let csrf = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+        function verify() {
+            return new Promise(((resolve, reject) => {
+                $.ajax({
+                    type: "POST",
+                    url: "/bio/username/verify",
+                    data: {"username": $("#username").val() , "csrfmiddlewaretoken": csrf},
+                    success: function (response){
+                        if(response.verified === 1){
+                            console.log("yeah");
+                            resolve();
+                        }else{
+                            reject();
+                        }
+                    },
+                    error: function () {
+                        reject();
+                    }
+                })
+            }));
+        }
+
+        function preCheck(){
+            if(!$("#username").val()){
+                $("#message").text("username cannot be empty");
+                return;
+            }
+            $("#checkin").text("Verifying...");
+            verify().then(()=>{
+                $("#message").text("");
+                $("#submit ").trigger("click");
+            }, ()=>{
+                $("#checkin").text("Check in/ out");
+                $("#message").text("user not found");
+            });
+        }
+    </script>
+{% endblock %}

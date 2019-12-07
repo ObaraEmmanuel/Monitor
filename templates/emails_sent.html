@@ -1,0 +1,16 @@
+{% load static %}
+{% block styles %}
+    <style>
+        #result .centered{
+            display: block;
+            margin: 30px auto;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div id="result" style="display: block; margin-top: 100px">
+        <img alt="check" class="centered" width="200" height="200" style="border-radius: 100px" src={% static "images/check.png" %}>
+        <div class="heading-text centered" style="color: #33b984"> Emails sent successfully to {{ count }} employees</div>
+    </div>
+{% endblock %}

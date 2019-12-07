@@ -1,0 +1,132 @@
+body{
+    margin: 0;
+    padding: 2px;
+    font-family: Calibri, sans-serif;
+}
+.main-heading{
+    background: #f7f7f7;
+    width: 100%;
+    height: 60px;
+    padding: 10px 0 10px 0;
+    display: flex;
+}
+
+.heading-text{
+    color: #1c5739;
+    font-size: 40px;
+    display: inline-flex;
+    margin: 0;
+    height: 100%;
+}
+
+.logo-img{
+    width: 50px;
+    height: 50px;
+    display: inline-flex;
+}
+
+input{
+    border: solid 1px #303030;
+    border-radius: 15px;
+    color: #1c5739;
+    outline: transparent;
+    display: block;
+    width: 100%;
+    height: 30px;
+    margin: 15px auto;
+    padding: 4px;
+}
+
+.button{
+    background: #1c5739;
+    color: #f7f7f7;
+    border: none;
+    height: 40px;
+    margin: 30px auto;
+    border-radius: 25px;
+    cursor: pointer;
+    padding: 5px 15px 5px 15px;
+    outline: transparent;
+}
+
+.button-2, .button-2:visited{
+    border: solid 1px #1c5739;
+    border-radius: 18px;
+    height: 20px;
+    display: inline-block;
+    margin: 5px 10px 10px 5px;
+    padding: 5px;
+    color: #1c5739;
+    transition: linear 0.5s;
+    font-size: 15px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.selected{
+    background: #1c5739;
+    color: #f7f7f7!important;
+}
+
+.right{
+    float: right;
+}
+
+.button-2:hover{
+    background: #1c5739;
+    color: #f7f7f7;
+}
+
+.error{
+    font-size: 12px;
+    color: orangered;
+    margin: 10px 0 10px 0;
+}
+
+.text{
+    color: #303030;
+    font-size: 18px;
+}
+
+.text-subtitle{
+    font-size: 27px;
+    text-align: left;
+    width: 100%;
+    margin: 20px auto;
+    padding: 10px;
+    border-bottom: solid 1px #dddddd;
+    color: #808080;
+}
+
+.text-medium{
+    font-size: 20px;
+    color: #1c5739;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.content{
+    width: 98%;
+    max-width: 300px;
+    margin: 150px auto;
+    font-size: 15px;
+}
+
+tr, th{
+    height: 35px;
+    font-size: 18px;
+    color: #303030;
+}
+
+th{
+    color: #1c5739;
+}
+
+.highlighted{
+    background: #f7f7f7;
+}
+
+td{
+    height: 30px;
+    vertical-align: middle;
+}
