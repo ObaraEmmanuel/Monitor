@@ -5,7 +5,6 @@ from django.core.mail import EmailMultiAlternatives, get_connection
 from django.db.models import QuerySet
 from django.http import JsonResponse, Http404
 from django.shortcuts import render
-from django.template import Context
 from django.template.loader import get_template
 
 from Biometric.models import Log, Employee
@@ -95,17 +94,31 @@ def calc_net(queryset: QuerySet):
 
 
 def report(request, duration, username):
-    periods = ("All time", "This month", "Today")
+    periods = ("All time", "This month", "This week", "Today")
     if request.user.is_authenticated:
         user = User.objects.filter(username=username)
         if user.exists():
             user = user[0]
             today = datetime.now()
             if duration == 0:
+                # All time
                 logs = user.log_set.order_by("-date")
             elif duration == 1:
+                # This month
                 logs = user.log_set.filter(date__month=today.month, date__year=today.year).order_by("-date")
             elif duration == 2:
+                # This week
+                logs = user.log_set.filter(date__year=today.year).order_by("-date")
+                # This method is very inefficient but creating a custom SQL lookup would be daunting
+                filtered = []
+                for log in logs:
+                    week = log.date.isocalendar()[1]
+                    if week == today.isocalendar()[1]:
+                        filtered.append(log.id)
+                # Calc_net requires queryset
+                logs = user.log_set.filter(pk__in=filtered)
+            elif duration == 3:
+                # Today
                 logs = user.log_set.filter(date__month=today.month, date__year=today.year,
                                            date__day=today.day).order_by("-date")
             else:
