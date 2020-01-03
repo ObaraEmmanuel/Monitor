@@ -21,6 +21,7 @@ class LogAdmin(ModelAdmin):
     # The forms to add and change Employee
     table_name = 'Log'
     list_display = ('employee', 'date', 'nature')
+    list_filter = ('employee', 'nature')
     fieldsets = (
         ("Log", {'fields': ('employee', 'date', 'nature')}),
     )
